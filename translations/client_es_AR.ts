@@ -1153,7 +1153,7 @@ This action will abort any currently running synchronization.</source>
     <name>OCC::ConnectionValidator</name>
     <message>
         <location filename="../src/gui/connectionvalidator.cpp" line="50"/>
-        <source>No Nextcloud account configured</source>
+        <source>No Amaze Cloud account configured</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2570,12 +2570,12 @@ Items where deletion is allowed will be deleted if they prevent a directory from
     </message>
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="55"/>
-        <source>&lt;p&gt;Copyright 2017-2021 Nextcloud GmbH&lt;br /&gt;Copyright 2012-2021 ownCloud GmbH&lt;/p&gt;</source>
+        <source>&lt;p&gt;Copyright 2017-2021 Amaze Cloud GmbH&lt;br /&gt;Copyright 2012-2021 ownCloud GmbH&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="55"/>
-        <source>&lt;p&gt;Copyright 2017-2020 Nextcloud GmbH&lt;br /&gt;Copyright 2012-2018 ownCloud GmbH&lt;/p&gt;</source>
+        <source>&lt;p&gt;Copyright 2017-2020 Amaze Cloud GmbH&lt;br /&gt;Copyright 2012-2018 ownCloud GmbH&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4230,7 +4230,7 @@ This is a new, experimental mode. If you decide to use it, please report any iss
     </message>
     <message>
         <location filename="../src/gui/sharedialog.ui" line="125"/>
-        <source>Nextcloud Path:</source>
+        <source>Amaze Cloud Path:</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -6476,7 +6476,7 @@ This is a new, experimental mode. If you decide to use it, please report any iss
     <name>Window</name>
     <message>
         <location filename="../src/gui/tray/Window.qml" line="137"/>
-        <source>Nextcloud desktop main dialog</source>
+        <source>Amaze Cloud desktop main dialog</source>
         <translation type="unfinished"/>
     </message>
     <message>

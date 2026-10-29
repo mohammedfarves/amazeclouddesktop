@@ -275,7 +275,7 @@
     <name>AssistantMessageList</name>
     <message>
         <location filename="../src/gui/assistant/qml/AssistantMessageList.qml" line="50"/>
-        <source>Start a conversation with Nextcloud Assistant.</source>
+        <source>Start a conversation with Amaze Cloud Assistant.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -345,7 +345,7 @@
     </message>
     <message>
         <location filename="../src/gui/AssistantWindow.qml" line="19"/>
-        <source>Nextcloud Assistant</source>
+        <source>Amaze Cloud Assistant</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -720,7 +720,7 @@
     <message>
         <location filename="../src/gui/filedetails/FileDetailsWindow.qml" line="29"/>
         <source>File details of %1 · %2</source>
-        <extracomment>%1 is the file name. %2 is the application window title, for example &quot;Nextcloud&quot;.</extracomment>
+        <extracomment>%1 is the file name. %2 is the application window title, for example &quot;Amaze Cloud&quot;.</extracomment>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6744,7 +6744,7 @@ Server replied with error: %2</source>
     <message>
         <location filename="../src/gui/owncloudgui.cpp" line="512"/>
         <source>%1: %2</source>
-        <extracomment>Example text: &quot;Nextcloud: Syncing 25MB (3 minutes left)&quot; (%1 is the folder name to be synced, %2 a status message for that folder)</extracomment>
+        <extracomment>Example text: &quot;Amaze Cloud: Syncing 25MB (3 minutes left)&quot; (%1 is the folder name to be synced, %2 a status message for that folder)</extracomment>
         <translation type="unfinished"/>
     </message>
     <message>

@@ -122,7 +122,7 @@
     <message>
         <location filename="../src/gui/cloudproviders/cloudproviderwrapper.cpp" line="227"/>
         <source>Open %1 Desktop</source>
-        <comment>Open Nextcloud main window. Placeholer will be the application name. Please keep it.</comment>
+        <comment>Open Amaze Cloud main window. Placeholer will be the application name. Please keep it.</comment>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -464,7 +464,7 @@ macOS may ignore or delay this request.</source>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="236"/>
-        <source>Nextcloud desktop main dialog</source>
+        <source>Amaze Cloud desktop main dialog</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1665,7 +1665,7 @@ This action will abort any currently running synchronization.</source>
     </message>
     <message>
         <location filename="../src/gui/connectionvalidator.cpp" line="46"/>
-        <source>No Nextcloud account configured</source>
+        <source>No Amaze Cloud account configured</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3305,7 +3305,7 @@ Items where deletion is allowed will be deleted if they prevent a directory from
     </message>
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="46"/>
-        <source>&lt;p&gt;Copyright 2017-2025 Nextcloud GmbH&lt;br /&gt;Copyright 2012-2023 ownCloud GmbH&lt;/p&gt;</source>
+        <source>&lt;p&gt;Copyright 2017-2025 Amaze Cloud GmbH&lt;br /&gt;Copyright 2012-2023 ownCloud GmbH&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -5601,12 +5601,12 @@ Server replied with error: %2</source>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1087"/>
-        <source>Open Nextcloud Assistant in browser</source>
+        <source>Open Amaze Cloud Assistant in browser</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1087"/>
-        <source>Open Nextcloud Talk in browser</source>
+        <source>Open Amaze Cloud Talk in browser</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -5941,7 +5941,7 @@ Server replied with error: %2</source>
     <message>
         <location filename="../src/gui/owncloudgui.cpp" line="444"/>
         <source>%1: %2</source>
-        <extracomment>Example text: &quot;Nextcloud: Syncing 25MB (3 minutes left)&quot; (%1 is the folder name to be synced, %2 a status message for that folder)</extracomment>
+        <extracomment>Example text: &quot;Amaze Cloud: Syncing 25MB (3 minutes left)&quot; (%1 is the folder name to be synced, %2 a status message for that folder)</extracomment>
         <translation type="unfinished"/>
     </message>
     <message>

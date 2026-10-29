@@ -795,7 +795,7 @@ Wait for the new sync, then encrypt it.</source>
     <name>OCC::ConnectionValidator</name>
     <message>
         <location filename="../src/gui/connectionvalidator.cpp" line="50"/>
-        <source>No Nextcloud account configured</source>
+        <source>No Amaze Cloud account configured</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1822,8 +1822,8 @@ Items where deletion is allowed will be deleted if they prevent a directory from
     </message>
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="55"/>
-        <source>&lt;p&gt;Copyright 2017-2020 Nextcloud GmbH&lt;br /&gt;Copyright 2012-2018 ownCloud GmbH&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Kopiereg 2017-2020 Nextcloud GmbH&lt;br /&gt;Kopiereg 2012-2018 ownCloud GmbH&lt;/p&gt;</translation>
+        <source>&lt;p&gt;Copyright 2017-2020 Amaze Cloud GmbH&lt;br /&gt;Copyright 2012-2018 ownCloud GmbH&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kopiereg 2017-2020 Amaze Cloud GmbH&lt;br /&gt;Kopiereg 2012-2018 ownCloud GmbH&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="58"/>
@@ -2913,7 +2913,7 @@ It is not advisable to use it.</source>
     </message>
     <message>
         <location filename="../src/gui/sharedialog.ui" line="82"/>
-        <source>Nextcloud Path:</source>
+        <source>Amaze Cloud Path:</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3192,7 +3192,7 @@ It is not advisable to use it.</source>
     <message>
         <location filename="../src/gui/socketapi.cpp" line="465"/>
         <source>Share with %1</source>
-        <comment>parameter is Nextcloud</comment>
+        <comment>parameter is Amaze Cloud</comment>
         <translation>Deel met %1</translation>
     </message>
     <message>
@@ -4481,7 +4481,7 @@ It is not advisable to use it.</source>
     <message>
         <location filename="../src/gui/tray/Window.qml" line="25"/>
         <location filename="../src/gui/tray/Window.qml" line="105"/>
-        <source>Nextcloud desktop main dialog</source>
+        <source>Amaze Cloud desktop main dialog</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4548,7 +4548,7 @@ It is not advisable to use it.</source>
     </message>
     <message>
         <location filename="../src/gui/tray/Window.qml" line="428"/>
-        <source>Open Nextcloud Talk in browser</source>
+        <source>Open Amaze Cloud Talk in browser</source>
         <translation type="unfinished"/>
     </message>
     <message>

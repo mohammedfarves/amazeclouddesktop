@@ -275,7 +275,7 @@
     <name>AssistantMessageList</name>
     <message>
         <location filename="../src/gui/assistant/qml/AssistantMessageList.qml" line="50"/>
-        <source>Start a conversation with Nextcloud Assistant.</source>
+        <source>Start a conversation with Amaze Cloud Assistant.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -346,7 +346,7 @@
     <message>
         <location filename="../src/gui/AssistantWindow.qml" line="19"/>
         <source>Nextcloud Assistant</source>
-        <translation>„Nextcloud Asistentas“</translation>
+        <translation>„Amaze Cloud Asistentas“</translation>
     </message>
     <message>
         <location filename="../src/gui/AssistantWindow.qml" line="91"/>
@@ -4324,7 +4324,7 @@ Versijos negalima iškart pakeisti į senesnę: norint pereiti iš stabilios ver
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="47"/>
         <source>&lt;p&gt;Copyright 2017-2026 Nextcloud GmbH&lt;br /&gt;Copyright 2012-2023 ownCloud GmbH&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Autorinės teisės 2017–2026 m. Nextcloud GmbH&lt;br /&gt;Autorinės teisės 2012–2023 m. ownCloud GmbH&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Autorinės teisės 2017–2026 m. Amaze Cloud GmbH&lt;br /&gt;Autorinės teisės 2012–2023 m. ownCloud GmbH&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="50"/>

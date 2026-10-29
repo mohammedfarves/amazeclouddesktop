@@ -276,7 +276,7 @@
     <message>
         <location filename="../src/gui/assistant/qml/AssistantMessageList.qml" line="50"/>
         <source>Start a conversation with Nextcloud Assistant.</source>
-        <translation>Cuir tús le comhrá le Cúntóir Nextcloud.</translation>
+        <translation>Cuir tús le comhrá le Cúntóir Amaze Cloud.</translation>
     </message>
 </context>
 <context>
@@ -346,7 +346,7 @@
     <message>
         <location filename="../src/gui/AssistantWindow.qml" line="19"/>
         <source>Nextcloud Assistant</source>
-        <translation>Cúntóir Nextcloud</translation>
+        <translation>Cúntóir Amaze Cloud</translation>
     </message>
     <message>
         <location filename="../src/gui/AssistantWindow.qml" line="91"/>
@@ -4323,7 +4323,7 @@ Ní féidir leaganacha a íosghrádú láithreach: ciallaíonn athrú ó leagan 
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="47"/>
         <source>&lt;p&gt;Copyright 2017-2026 Nextcloud GmbH&lt;br /&gt;Copyright 2012-2023 ownCloud GmbH&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Cóipcheart 2017-2026 Nextcloud GmbH&lt;br /&gt;Cóipcheart 2012-2023 ownCloud GmbH&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Cóipcheart 2017-2026 Amaze Cloud GmbH&lt;br /&gt;Cóipcheart 2012-2023 ownCloud GmbH&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/gui/legalnotice.cpp" line="50"/>

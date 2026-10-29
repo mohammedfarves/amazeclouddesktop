@@ -275,7 +275,7 @@
     <name>AssistantMessageList</name>
     <message>
         <location filename="../src/gui/assistant/qml/AssistantMessageList.qml" line="50"/>
-        <source>Start a conversation with Nextcloud Assistant.</source>
+        <source>Start a conversation with Amaze Cloud Assistant.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -345,7 +345,7 @@
     </message>
     <message>
         <location filename="../src/gui/AssistantWindow.qml" line="19"/>
-        <source>Nextcloud Assistant</source>
+        <source>Amaze Cloud Assistant</source>
         <translation type="unfinished"/>
     </message>
     <message>
