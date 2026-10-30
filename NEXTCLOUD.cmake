@@ -19,7 +19,7 @@ endif()
 set( APPLICATION_CONFIG_NAME "${APPLICATION_EXECUTABLE}" )
 set( APPLICATION_DOMAIN     "amazepro.net" )
 set( APPLICATION_VENDOR     "Amaze" )
-set( APPLICATION_UPDATE_URL "" CACHE STRING "URL for updater" )
+set( APPLICATION_UPDATE_URL "https://cloud.amazepro.net/" CACHE STRING "URL for updater" )
 set( APPLICATION_HELP_URL   "https://cloud.amazepro.net" CACHE STRING "URL for the help menu" )
 
 # Default macOS builds (Nextcloud + NextcloudDev) use the Icon Composer (.icon)
@@ -83,7 +83,7 @@ set( APPLICATION_SERVER_URL "https://cloud.amazepro.net" CACHE STRING "URL for t
 set( APPLICATION_SERVER_URL_ENFORCE OFF ) # If set and APPLICATION_SERVER_URL is defined, the server can only connect to the pre-defined URL
 set( APPLICATION_REV_DOMAIN "com.amazepro.cloud.desktop" )
 set( APPLICATION_REV_DOMAIN_DBUS "desktop.cloud.amazepro.com" )
-set( DEVELOPMENT_TEAM "" CACHE STRING "Apple Development Team ID" )
+set( DEVELOPMENT_TEAM "AMAZECLOUD" CACHE STRING "Apple Development Team ID" )
 set( APPLICATION_VIRTUALFILE_SUFFIX "amazecloud" CACHE STRING "Virtual file suffix (not including the .)")
 set( APPLICATION_OCSP_STAPLING_ENABLED OFF )
 set( APPLICATION_FORBID_BAD_SSL OFF )
