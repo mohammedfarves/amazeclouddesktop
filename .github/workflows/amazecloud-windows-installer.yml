@@ -1,0 +1,170 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
+# Builds the branded Windows client (Amaze Cloud) and uploads a portable zip and an MSI installer.
+# Dependencies come from Craft exactly as in windows-build-and-test.yml; the client itself is built
+# with plain CMake so the branding options below are applied as-is.
+name: Amaze Cloud Windows installer
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Amaze Cloud for Windows
+    runs-on: windows-2022
+    env:
+      CRAFT_TARGET: windows-msvc2022_64-cl
+      CRAFT_MASTER_LOCATION: ${{ github.workspace }}\CraftMaster
+      CRAFT_MASTER_CONFIG: ${{ github.workspace }}\craftmaster.ini
+      PYTHON_VERSION: '3.12'
+      BUILD_DIR: ${{ github.workspace }}\build-amazecloud
+      STAGE_DIR: ${{ github.workspace }}\stage
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Resolve Craft dependency revisions
+        id: craft-revisions
+        shell: pwsh
+        run: |
+          function configValue($key) {
+              $escapedKey = [regex]::Escape($key)
+              $matches = @(Select-String -Path "${{ env.CRAFT_MASTER_CONFIG }}" -Pattern "^\s*$escapedKey\s*=\s*(.+?)\s*$")
+              if($matches.Count -ne 1) {
+                  throw "Expected exactly one $key value in craftmaster.ini."
+              }
+              return $matches[0].Matches[0].Groups[1].Value.Trim()
+          }
+
+          $craftRevision = configValue "CraftRevision"
+          $kdeBlueprintRef = configValue "craft/craft-blueprints-kde.revision"
+          $nextcloudBlueprintRef = configValue "craft/craft-blueprints-nextcloud.revision"
+
+          function remoteRevision($repository, $ref) {
+              $revision = git ls-remote $repository $ref
+              if($LASTEXITCODE -ne 0 -or !$revision) {
+                  throw "Could not resolve $ref from $repository."
+              }
+              return ($revision -split '\s+')[0]
+          }
+
+          $kdeBlueprintRevision = remoteRevision "https://github.com/nextcloud/craft-blueprints-kde.git" "refs/heads/$kdeBlueprintRef"
+          $nextcloudBlueprintRevision = remoteRevision "https://github.com/nextcloud/craft-blueprints-nextcloud.git" "refs/heads/$nextcloudBlueprintRef"
+          @(
+              "kde_ref=$kdeBlueprintRef"
+              "nextcloud_ref=$nextcloudBlueprintRef"
+              "key=$craftRevision-$kdeBlueprintRevision-$nextcloudBlueprintRevision"
+          ) | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Restore Craft dependencies
+        id: craft-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ${{ env.CRAFT_MASTER_LOCATION }}
+            ${{ env.CRAFT_MASTER_CONFIG }}
+            ${{ github.workspace }}\craft-clone
+            ${{ github.workspace }}\${{ env.CRAFT_TARGET }}
+          key: ${{ runner.os }}-craft-v1-${{ env.CRAFT_TARGET }}-python-${{ env.PYTHON_VERSION }}-${{ steps.craft-revisions.outputs.key }}
+
+      - name: Install Craft Master with client dependencies
+        if: steps.craft-cache.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          & cmd /C "git clone -q --depth=1 https://github.com/KDE/craftmaster.git ${{ env.CRAFT_MASTER_LOCATION }} 2>&1"
+
+          function craft() {
+              python "${{ env.CRAFT_MASTER_LOCATION }}\CraftMaster.py" --config "${{ env.CRAFT_MASTER_CONFIG }}" --target ${{ env.CRAFT_TARGET }} -c $args
+              if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+          }
+
+          craft --add-blueprint-repository "https://github.com/nextcloud/craft-blueprints-kde.git|${{ steps.craft-revisions.outputs.kde_ref }}|"
+          craft --add-blueprint-repository "https://github.com/nextcloud/craft-blueprints-nextcloud.git|${{ steps.craft-revisions.outputs.nextcloud_ref }}|"
+          craft craft
+          craft --install-deps nextcloud-client
+
+      - name: Save Craft dependencies
+        if: steps.craft-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ${{ env.CRAFT_MASTER_LOCATION }}
+            ${{ env.CRAFT_MASTER_CONFIG }}
+            ${{ github.workspace }}\craft-clone
+            ${{ github.workspace }}\${{ env.CRAFT_TARGET }}
+          key: ${{ runner.os }}-craft-v1-${{ env.CRAFT_TARGET }}-python-${{ env.PYTHON_VERSION }}-${{ steps.craft-revisions.outputs.key }}
+
+      - name: Install build tools (Inkscape for icons, Ninja, WiX for the MSI)
+        shell: pwsh
+        run: |
+          choco install inkscape ninja -y --no-progress
+          choco install wixtoolset --version 3.14.1 -y --no-progress
+
+      - name: Configure, build and install
+        shell: pwsh
+        run: |
+          $craftRoot = "${{ github.workspace }}\${{ env.CRAFT_TARGET }}"
+          $vsPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath
+          $vcvars = "$vsPath\VC\Auxiliary\Build\vcvars64.bat"
+          $env:PATH = "$craftRoot\bin;$craftRoot\dev-utils\bin;C:\Program Files\Inkscape\bin;$env:PATH"
+
+          $configure = @(
+              "cmake -S `"${{ github.workspace }}`" -B `"${{ env.BUILD_DIR }}`" -G Ninja",
+              "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+              "-DCMAKE_PREFIX_PATH=`"$craftRoot`"",
+              "-DCMAKE_INSTALL_PREFIX=`"${{ env.STAGE_DIR }}`"",
+              "-DBUILD_TESTING=OFF",
+              "-DBUILD_UPDATER=OFF",
+              "-DBUILD_WIN_MSI=ON",
+              "-DWIZARD_HIDE_SELF_HOST_BUTTON=ON",
+              "-DWIZARD_HIDE_SIGNUP_BUTTON=ON",
+              "-DAPPLICATION_DISPLAY_LEGACY_IMPORT_DIALOG=OFF",
+              "-DDISABLE_ACCOUNT_MIGRATION=ON"
+          ) -join " "
+
+          & cmd /C "call `"$vcvars`" && $configure && cmake --build `"${{ env.BUILD_DIR }}`" && cmake --install `"${{ env.BUILD_DIR }}`""
+          if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+
+      - name: Bundle Qt and dependency DLLs
+        shell: pwsh
+        run: |
+          $craftRoot = "${{ github.workspace }}\${{ env.CRAFT_TARGET }}"
+          $bin = "${{ env.STAGE_DIR }}\bin"
+          $exe = Get-ChildItem $bin -Filter "*.exe" | Where-Object { $_.Name -notlike "*cmd.exe" } | Select-Object -First 1
+          & "$craftRoot\bin\windeployqt.exe" --release --qmldir "${{ github.workspace }}\src\gui" --dir $bin $exe.FullName
+          if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+
+          # Non-Qt dependencies (OpenSSL, SQLite, KArchive, QtKeychain, libp11, ...) live next to Craft's binaries
+          Get-ChildItem "$craftRoot\bin" -Filter "*.dll" | Where-Object { -not (Test-Path (Join-Path $bin $_.Name)) } |
+              ForEach-Object { Copy-Item $_.FullName $bin }
+
+      - name: Create portable zip
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "${{ env.STAGE_DIR }}\bin\*" -DestinationPath "${{ github.workspace }}\Amaze-Cloud-windows-x64.zip"
+
+      - name: Create MSI installer
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $env:WIX = (Get-ChildItem "${env:ProgramFiles(x86)}" -Directory -Filter "WiX Toolset v3*" | Select-Object -First 1).FullName + "\"
+          Push-Location "${{ env.STAGE_DIR }}\msi"
+          & cmd /C "make-msi.bat `"${{ env.STAGE_DIR }}\bin`""
+          $code = $LASTEXITCODE
+          Pop-Location
+          Get-ChildItem "${{ env.STAGE_DIR }}\msi" -Filter "*.msi" | ForEach-Object { Copy-Item $_.FullName "${{ github.workspace }}\" }
+          exit $code
+
+      - name: Upload Windows build
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: Amaze-Cloud-windows-x64
+          path: |
+            ${{ github.workspace }}\Amaze-Cloud-windows-x64.zip
+            ${{ github.workspace }}\*.msi
+          if-no-files-found: error
