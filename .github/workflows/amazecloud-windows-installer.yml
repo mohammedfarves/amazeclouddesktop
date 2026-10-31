@@ -99,11 +99,17 @@ jobs:
             ${{ github.workspace }}\${{ env.CRAFT_TARGET }}
           key: ${{ runner.os }}-craft-v1-${{ env.CRAFT_TARGET }}-python-${{ env.PYTHON_VERSION }}-${{ steps.craft-revisions.outputs.key }}
 
-      - name: Install build tools (Inkscape for icons, Ninja, WiX for the MSI)
+      - name: Install build tools (Inkscape for icons, Ninja)
         shell: pwsh
         run: |
           choco install inkscape ninja -y --no-progress
-          choco install wixtoolset --version 3.14.1 -y --no-progress
+          if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+
+      - name: Install WiX Toolset (MSI only)
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          choco install wixtoolset -y --no-progress
 
       - name: Configure, build and install
         shell: pwsh
